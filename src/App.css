@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+.images {
+  height: 40em;
+  width: 40em;
+  padding: 2%;
+  background-color: antiquewhite;
+}
