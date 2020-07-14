@@ -25,15 +25,20 @@ function App() {
 
   const handleShowButton = (e) => {
     e.preventDefault()
-    axios
-      .get(
-        `https://api.nasa.gov/planetary/apod?api_key=ogdSo3reoQL3v1GcXYatFWbmFOxqJgFJFnfbu4g3&date=${input.date}`
-      )
-      .then((res) => {
-        console.log(res.data)
-        setImage(res.data)
-        document.getElementsByClassName("image").src = input.image
-      })
+    if (localStorage.getItem(input.date) === null) {
+      axios
+        .get(
+          `https://api.nasa.gov/planetary/apod?api_key=ogdSo3reoQL3v1GcXYatFWbmFOxqJgFJFnfbu4g3&date=${input.date}`
+        )
+        .then((res) => {
+          console.log(res.data)
+          setImage(res.data)
+          document.getElementsByClassName("images rounded").src = input.image
+          localStorage.setItem(image.date, image.url)
+        })
+    } else {
+      document.getElementById("imgID").src = localStorage.getItem(input.date)
+    }
   }
 
   return (
@@ -42,7 +47,12 @@ function App() {
         <h1 className="mb-2 text-white text-3xl text-center">
           Todays date: {today}
         </h1>
-        <img className="images rounded" src={image.url} alt="APODImage" />
+        <img
+          id="imgID"
+          className="images rounded"
+          src={image.url}
+          alt="APODImage"
+        />
       </div>
 
       <div className="">
